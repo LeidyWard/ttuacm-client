@@ -13,7 +13,7 @@ jobs:
     script:
     # - yarn test
 
-    # Use Travis to build and push containers to Docker Hub
+    # Use Travis to build and push containers to Docker
   - stage: deploy
     sudo: required
     services:
