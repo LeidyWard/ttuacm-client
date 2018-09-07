@@ -4,7 +4,6 @@ services:
     build: .
     volumes:
       - ./ssl:/etc/ssl
-      - ./configs:/etc/nginx/conf.d
     ports:
       - "80:80"
       - "443:443"

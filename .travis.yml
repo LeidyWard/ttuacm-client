@@ -1,0 +1,26 @@
+dist: trusty
+language: node_js
+node_js:
+  - 10.6.0
+jobs:
+  include:
+  - stage: test
+    cache:
+      directories:
+      - node_modules
+    install:
+    - yarn
+    script:
+    # - yarn test
+
+    # Use Travis to build and push containers to Docker Hub
+  - stage: deploy
+    sudo: required
+    services:
+    - docker
+
+    # Deploy to EC2
+    - bash deploy.sh
+
+notifications:
+  email: false
