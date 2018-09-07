@@ -19,6 +19,7 @@ jobs:
     services:
     - docker
 
+    script:
     # Deploy to EC2
     - bash deploy.sh
 
