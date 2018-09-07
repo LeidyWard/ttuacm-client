@@ -27,6 +27,8 @@ yarn-error.log*
 
 # Editor
 *.swp
+*.swo
+*.swn
 .tern-project
 .tern-config
 .tern-port
