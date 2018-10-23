@@ -3,7 +3,6 @@ import React from 'react'
 
 import Auth from './Auth.jsx'
 
-
 /**
  * Handles requests to the server during production and fetching mocks in development
  */

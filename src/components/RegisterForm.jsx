@@ -1,30 +1,74 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import logger from 'logger.js'
+import logger from 'utils/logger.js'
 
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-
-// Fields
-import { RoleField, TextField } from 'components/'
 
 // Styles
-import { FormStyles as styles } from 'components/styles/'
+import FormStyles from 'components/styles/FormStyles'
+
+// Fields
+import TextField from './TextField.jsx'
 
 // Verification
-import { FormChecker as withInputValidation } from './FormChecker.jsx'
+import withInputValidation from './FormChecker.jsx'
 
-
+/**
+ * Registration form.
+ * Contains:
+ * - name
+ * - email
+ * - password
+ * - confirm password
+ * - classification
+ */
 export class RegisterForm extends React.Component {
+  static propTypes = {
+    // Handles a registration action
+    handleRegister: PropTypes.func.isRequired,
+    // Validation function to tell FormCheck what we are validating
+    validate: PropTypes.func,
+
+    // Styles
+    classes: PropTypes.shape({}),
+
+    // Registration/Network Error
+    regErr: PropTypes.string.isRequired,
+    // Email Error from FormChecker
+    emailErr: PropTypes.string,
+    // Password Error from FormChecker
+    passErr: PropTypes.string,
+    // Confirm Password Error from FormChecker
+    confirmErr: PropTypes.string,
+
+    // True: waiting for a network call to finish
+    waiting: PropTypes.bool.isRequired,
+  }
+
+  static defaultProps = {
+    classes: {},
+    emailErr: '',
+    confirmErr: '',
+    passErr: '',
+    validate: () => logger.error('Validate not passed outside of test'),
+  }
+
   state = {
+    name: '',
     email: '',
     password: '',
     confirmPass: '',
-    name: '',
-    role: 'student',
+    classification: '',
   }
 
+  /**
+   * Handles the changing values of the inputs
+   * This is usually called in the TextFields in the form
+   *
+   * @param {string} name the name of the field to edit
+   * @param {object} event event object for javascript
+   */
   handleInputChange = name => (event) => {
     const { value } = event.target
     this.setState((prevState) => {
@@ -44,9 +88,16 @@ export class RegisterForm extends React.Component {
     })
   }
 
-  // Determines whether or not to prevent a submittion
-  checkForErrors = () => new Promise((resolve, reject) => {
-    // Checks for the errors and empty inputs
+  /**
+   * Handles a submission while checking for errors
+   *
+   * - OnSuccess: Will call the handleRegister method passed to the component and return true
+   * - OnFailure: Will return false
+   *
+   * @todo Add error handling through a modal instead of a console.error
+   * @returns {boolean} returns a boolean value for ease in testing
+   */
+  handleSubmit = () => {
     const preventSubmit = (
       Boolean(this.props.regErr)
       || Boolean(this.props.emailErr)
@@ -58,41 +109,38 @@ export class RegisterForm extends React.Component {
       || this.state.email === ''
     )
 
+    // Checks for a preventSubmit flag
     if (preventSubmit === true) {
-      reject(new Error('There are invalid values in the fields above'))
-    // Checks for a stalled server
-    } else if (this.props.waiting === true) {
-      reject(new Error('Server not ready'))
+      logger.error(new Error('There are invalid values in the fields above'))
+      return false
     }
 
-    resolve()
-  })
+    // Checks for a stalled server
+    if (this.props.waiting === true) {
+      logger.error(new Error('Server not ready'))
+      return false
+    }
 
-  // Will either accept the submittion or display an error when submitting
-  handleSubmit = () => {
-    this.checkForErrors()
-      .then(() => {
-        this.props.handleRegister({
-          email: this.state.email,
-          password: this.state.password,
-          name: this.state.name,
-          role: this.state.role,
-        })
-      })
-      .catch((err) => {
-        // TODO: Display a global error as a snackbar notif
-        logger.info(this.props)
-        logger.error(err.message)
-      })
+    this.props.handleRegister({
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name,
+    })
+    return true
   }
 
+  /**
+   * Render
+   *
+   * @todo make the classification field a drop down
+   */
   render() {
     const {
+      name,
       email,
       password,
       confirmPass,
-      name,
-      role,
+      classification,
     } = this.state
 
     const {
@@ -104,10 +152,12 @@ export class RegisterForm extends React.Component {
 
     return (
       <form className={classes.container} noValidate autoComplete='off'>
-        <RoleField
-          name='role'
-          currentValue={role}
+        <TextField
+          title='Name'
+          tag='name'
+          currentValue={name}
           onNewValue={this.handleInputChange}
+          error=''
         />
         <TextField
           title='Email'
@@ -116,11 +166,6 @@ export class RegisterForm extends React.Component {
           onNewValue={this.handleInputChange}
           error={emailErr}
         />
-        <Typography align='center' variant='caption'>
-        Your password should use at least 8 characters. It should
-        contain only ASCII text, with at least one uppercase, one
-        lowercase, one number, and one special character.
-        </Typography>
         <TextField
           hide
           title='Password'
@@ -138,10 +183,11 @@ export class RegisterForm extends React.Component {
           error={confirmErr}
         />
         <TextField
-          title='Screen Name'
-          tag='name'
-          currentValue={name}
+          title='Classification'
+          tag='classification'
+          currentValue={classification}
           onNewValue={this.handleInputChange}
+          error=''
         />
         <Button
           variant='raised'
@@ -156,26 +202,5 @@ export class RegisterForm extends React.Component {
   }
 }
 
-RegisterForm.propTypes = {
-  // Handles a registration action
-  handleRegister: PropTypes.func.isRequired,
-  // Validation function to tell FormCheck what we are validating
-  validate: PropTypes.func.isRequired,
 
-  // Styles
-  classes: PropTypes.shape({}).isRequired,
-
-  // Registration/Network Error
-  regErr: PropTypes.string.isRequired,
-  // Email Error from FormChecker
-  emailErr: PropTypes.string.isRequired,
-  // Password Error from FormChecker
-  passErr: PropTypes.string.isRequired,
-  // Confirm Password Error from FormChecker
-  confirmErr: PropTypes.string.isRequired,
-
-  // True: waiting for a network call to finish
-  waiting: PropTypes.bool.isRequired,
-}
-
-export default withStyles(styles)(withInputValidation(RegisterForm))
+export default withStyles(FormStyles)(withInputValidation(RegisterForm))
