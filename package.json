@@ -44,7 +44,8 @@
     "test": "react-app-rewired test",
     "config": "cp .env.config .env",
     "lint": "eslint src",
-    "docs": "jsdoc -c .jsdoc.json"
+    "docs": "jsdoc -c .jsdoc.json",
+    "env-config": "node ./src/utils/env-config"
   },
   "jest": {
     "setupFiles": [
