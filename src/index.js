@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'index.css'
 
-import logger from 'utils/logger.js'
+import logger from 'logger'
 import App from './App.jsx'
 
 import registerServiceWorker from './registerServiceWorker'

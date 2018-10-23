@@ -1,8 +1,12 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "build",
     "ignore": [
       "firebase.json",
+      "docs",
+      "src",
+      "build",
+      "reference",
       "**/.*",
       "**/node_modules/**"
     ],

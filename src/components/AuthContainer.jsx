@@ -1,14 +1,28 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Auth from './components/Auth.jsx'
+import Auth from './Auth.jsx'
 
 
-// Handles requests to the server during production and fetching mocks in development
+/**
+ * Handles requests to the server during production and fetching mocks in development
+ */
 class AuthContainer extends React.Component {
+  /**
+   * Initail state for AuthContainer
+   */
   state = {
-    logErr: '', // Login Error
+    /**
+     * Login Error
+     */
+    logErr: '',
+    /**
+     * Registration Error
+     */
     regErr: '', // Registration Error
+    /**
+     * Flag for when we are waiting for an async request to finish
+     */
     waiting: false,
   }
 
