@@ -14,9 +14,9 @@ export class LoginForm extends React.Component {
   state = {
     email: '',
     password: '',
-  };
+  }
 
-  handleInputChange = (name: string) => (event) => {
+  handleInputChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     })

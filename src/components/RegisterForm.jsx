@@ -9,11 +9,12 @@ import Typography from '@material-ui/core/Typography'
 // Fields
 import { RoleField, TextField } from 'components/'
 
-// Verification
-import { FormChecker as withInputValidation } from 'utils/'
-
 // Styles
-import { FormStyles as styles } from 'components/Auth/styles/'
+import { FormStyles as styles } from 'components/styles/'
+
+// Verification
+import { FormChecker as withInputValidation } from './FormChecker.jsx'
+
 
 export class RegisterForm extends React.Component {
   state = {
@@ -22,7 +23,7 @@ export class RegisterForm extends React.Component {
     confirmPass: '',
     name: '',
     role: 'student',
-  };
+  }
 
   handleInputChange = name => (event) => {
     const { value } = event.target
@@ -65,7 +66,7 @@ export class RegisterForm extends React.Component {
     }
 
     resolve()
-  });
+  })
 
   // Will either accept the submittion or display an error when submitting
   handleSubmit = () => {
