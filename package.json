@@ -26,6 +26,7 @@
     "babel-preset-env": "1.7.0",
     "babel-preset-stage-2": "6.24.1",
     "chai": "4.1.2",
+    "cross-env": "5.2.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
     "eslint": "5.3.0",
@@ -39,10 +40,9 @@
     "sinon-chai": "3.2.0"
   },
   "scripts": {
-    "serve": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "config": "cp .env.config .env",
+    "serve": "cross-env NODE_PATH=src react-app-rewired start",
+    "build": "cross-env NODE_PATH=src react-app-rewired build",
+    "test": "cross-env NODE_PATH=src react-app-rewired test",
     "lint": "eslint src",
     "docs": "jsdoc -c .jsdoc.json",
     "env-config": "node ./src/utils/env-config"
