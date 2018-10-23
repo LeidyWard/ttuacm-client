@@ -12,10 +12,10 @@ jobs:
       - node_modules
     script:
     - yarn lint
-    - yarn test --ci --forceExit --detectOpenHandles --maxWorkers=10
+    - yarn test
   - stage: deploy
     install:
-    - yarn add -DE esdoc@0.5.2 esdoc-node@1.0.2
+    - yarn add -DE jsdoc@3.5.5
     script:
     - yarn docs
     deploy:

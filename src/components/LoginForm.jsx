@@ -9,7 +9,6 @@ import { FormStyles as styles } from 'components/Auth/styles/'
 
 import { TextField } from 'components/'
 
-
 export class LoginForm extends React.Component {
   state = {
     email: '',
