@@ -7,7 +7,7 @@ import Input from '@material-ui/core/Input'
 import PropTypes from 'prop-types'
 
 /**
- * Handles input changes and errors
+ * Basic Form Field
  */
 const TextField = (props) => {
   const {
@@ -34,6 +34,7 @@ const TextField = (props) => {
           type: hide ? 'password' : null,
         }}
       />
+      {/** Displays the error */}
       <FormHelperText id={`${tag}-error`} display={hasError ? 'none' : null}>
         {error}
       </FormHelperText>

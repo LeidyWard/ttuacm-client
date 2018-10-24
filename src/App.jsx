@@ -8,7 +8,7 @@ const style = {
 }
 
 /**
- * Main stateless component
+ * Root of Component Tree
  */
 const App = () => (
   <div style={style} className='App'>Hello World</div>
