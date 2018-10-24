@@ -1,11 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'index.css'
 
-import logger from 'utils/logger.js'
+import logger from 'utils/logger'
+import registerServiceWorker from 'registerServiceWorker'
+
 import App from './App.jsx'
-
-import registerServiceWorker from './registerServiceWorker'
 
 
 if (process.env.NODE_ENV === 'development') logger.info('In development mode')
