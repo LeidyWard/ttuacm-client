@@ -5,18 +5,17 @@ import Button from '@material-ui/core/Button'
 
 import { withStyles } from '@material-ui/core/styles'
 
-import { FormStyles as styles } from 'components/Auth/styles/'
+import FormStyles from 'components/styles/FormStyles'
 
-import { TextField } from 'components/'
-
+import TextField from 'components/TextField.jsx'
 
 export class LoginForm extends React.Component {
   state = {
     email: '',
     password: '',
-  };
+  }
 
-  handleInputChange = (name: string) => (event) => {
+  handleInputChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     })
@@ -69,4 +68,4 @@ LoginForm.propTypes = {
   waiting: PropTypes.bool.isRequired,
 }
 
-export default withStyles(styles)(LoginForm)
+export default withStyles(FormStyles)(LoginForm)

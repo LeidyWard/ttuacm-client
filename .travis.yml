@@ -1,0 +1,35 @@
+language: node_js
+node_js:
+- '10'
+jobs:
+  include:
+  - stage: test
+    cache:
+      yarn: true
+      directories:
+      - node_modules
+    script:
+    - yarn lint
+    - yarn test
+  - stage: deploy
+    script:
+    - yarn build
+    deploy:
+    - provider: firebase
+      skip_cleanup: true
+      token:
+        secure: rx5w2THfe0QcwFe6wwypyuzVw7AB7Nx7Tl8xh2oj6q0zlpW71Ve+Br3Uol6n6pKIZJtFV8e/3IefbLIzW50ukwhkmuFz2c1D6nA9tT/2qAFn1waSch1LCMqFBIKFTfNBuj17NWLW+Mb01WChu2J09SVTOlxhNdczIGNvq1K2uxGtfuzefOTsAjek1Uv+IheeGFyNV4nS5/vn+hRCMwQLkH7vQADf5K/Y0zafAHSohWQKsnjdK8UecXSyUQvj9JL1W+BhMzUZ3GUoscC9uHGdQr1GFrASzD+LNEpTHEmROQxB6wi3t1ubPCnkgeF9m84gBCRMCDMKdZBlPujAxumBwijoXQByguJXHLlwkHAALS+jT2QTIlI/dT8SGl8VOse6yl/q8nRFeA5OREeyqf/sscVI8bkvDt+uvqZ/K6bC/y7oC22tZfz1fbSdspvSduHAi20Jl6rnbxJCAimtWRDt1xPtAMpWmDq9MWg6TRJZsa/ZPm5Fl5QV03t+Nh4Azke060qvBe2sIlwWx6aYGA6o/adAlNxxwD1vjck5WVYg/U643g0v2OXOYdzG3wNclQqTEcsnPYiUWBeG9BUcktLaKgM2BPLOMhL3xqbxmAEe08uOkE9Ljkxzn97p+GMtjyzTcft/z93Vwx09whWZBuIpkKw3f6yV548yrpgIhnjRMSo=
+      project: acm-texas-tech-web-app-2
+      message: Deployed to production
+      on:
+        branch: master
+    - provider: firebase
+      skip_cleanup: true
+      token:
+        secure: rx5w2THfe0QcwFe6wwypyuzVw7AB7Nx7Tl8xh2oj6q0zlpW71Ve+Br3Uol6n6pKIZJtFV8e/3IefbLIzW50ukwhkmuFz2c1D6nA9tT/2qAFn1waSch1LCMqFBIKFTfNBuj17NWLW+Mb01WChu2J09SVTOlxhNdczIGNvq1K2uxGtfuzefOTsAjek1Uv+IheeGFyNV4nS5/vn+hRCMwQLkH7vQADf5K/Y0zafAHSohWQKsnjdK8UecXSyUQvj9JL1W+BhMzUZ3GUoscC9uHGdQr1GFrASzD+LNEpTHEmROQxB6wi3t1ubPCnkgeF9m84gBCRMCDMKdZBlPujAxumBwijoXQByguJXHLlwkHAALS+jT2QTIlI/dT8SGl8VOse6yl/q8nRFeA5OREeyqf/sscVI8bkvDt+uvqZ/K6bC/y7oC22tZfz1fbSdspvSduHAi20Jl6rnbxJCAimtWRDt1xPtAMpWmDq9MWg6TRJZsa/ZPm5Fl5QV03t+Nh4Azke060qvBe2sIlwWx6aYGA6o/adAlNxxwD1vjck5WVYg/U643g0v2OXOYdzG3wNclQqTEcsnPYiUWBeG9BUcktLaKgM2BPLOMhL3xqbxmAEe08uOkE9Ljkxzn97p+GMtjyzTcft/z93Vwx09whWZBuIpkKw3f6yV548yrpgIhnjRMSo=
+      project: acm-texas-tech-web-app-2-beta
+      message: Deployed to staging
+      on:
+        branch: next
+notifications:
+  email: false
