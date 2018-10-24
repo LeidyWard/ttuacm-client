@@ -13,7 +13,7 @@ jobs:
     - yarn test
   - stage: deploy
     script:
-    - echo Deploying to firebase
+    - yarn build
     deploy:
     - provider: firebase
       skip_cleanup: true
