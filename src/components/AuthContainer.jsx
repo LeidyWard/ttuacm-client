@@ -7,26 +7,19 @@ import Auth from './Auth.jsx'
  * Handles requests to the server during production and fetching mocks in development
  */
 class AuthContainer extends React.Component {
-  constructor() {
-    super()
-
-    this.handleLogin = this.handleLogin.bind(this)
-    this.handleRegister = this.handleRegister.bind(this)
-
-    this.state = {
-      // Login Error
-      logErr: '',
-      // Registration Error
-      regErr: '',
-      // Flag for when we are waiting for an async request to finish
-      waiting: false,
-    }
+  state = {
+    // Login Error
+    logErr: '',
+    // Registration Error
+    regErr: '',
+    // Flag for when we are waiting for an async request to finish
+    waiting: false,
   }
 
   /**
    * Handles login form submission
    */
-  handleLogin() {
+  handleLogin = () => {
     console.log(this.state)
     return null
   }
@@ -34,7 +27,7 @@ class AuthContainer extends React.Component {
   /**
    * Handle register form submission
    */
-  handleRegister() {
+  handleRegister = () => {
     console.log(this.state)
     return null
   }
