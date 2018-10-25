@@ -12,6 +12,7 @@ module.exports = {
     "no-control-regex": 0,
     "keyword-spacing": 0,
     "chai-friendly/no-unused-expressions": 2,
+    "camelcase": 0,
 
     "import/no-extraneous-dependencies": 0,
     "import/extensions": 0,
