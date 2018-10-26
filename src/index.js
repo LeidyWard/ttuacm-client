@@ -23,7 +23,7 @@ function ConditionalRender(Component) {
 // we will build without environment variables
 const connectionString = (
   REACT_APP_environment_connection
-  || 'https://acm-texas-tech-web-app-2.firebaseapp.com/environment'
+  || 'https://acm-texas-tech-web-app-2.firebaseapp.com/environment/get-environment'
 )
 
 // Calls the firebase environment service to
