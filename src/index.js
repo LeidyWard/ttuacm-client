@@ -11,7 +11,6 @@ import MaintainanceScreen from './MaintainanceScreen.jsx'
 const {
   NODE_ENV,
   REACT_APP_environment_connection,
-  REACT_APP_secret_password,
 } = process.env
 
 if (NODE_ENV === 'development') logger.info('In development mode')
@@ -20,9 +19,16 @@ function ConditionalRender(Component) {
   ReactDOM.render(<Component />, document.getElementById('root'))
 }
 
+// If we are in a production environment,
+// we will build without environment variables
+const connectionString = (
+  REACT_APP_environment_connection
+  || 'https://acm-texas-tech-web-app-2.firebaseapp.com/environment'
+)
 
-// Calls the firebase environment service to grab the env variables
-axios.get(`${REACT_APP_environment_connection}/${REACT_APP_secret_password}`)
+// Calls the firebase environment service to
+// grab the env variables and checks for maintainance
+axios.get(connectionString)
   .then(({ data }) => {
     // If we are not undergoing maintainance
     if (data.maintainance !== 'true') {
@@ -34,6 +40,5 @@ axios.get(`${REACT_APP_environment_connection}/${REACT_APP_secret_password}`)
   .catch(() => {
     ConditionalRender(MaintainanceScreen)
   })
-
 
 registerServiceWorker()

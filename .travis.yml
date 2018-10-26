@@ -13,6 +13,7 @@ jobs:
     - yarn test
   - stage: deploy
     script:
+    - npm install -g firebase-tools@latest
     - yarn build
     deploy:
     - provider: firebase
