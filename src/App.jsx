@@ -11,7 +11,7 @@ const style = {
  * Root of Component Tree
  */
 const App = () => (
-  <div style={style} className='App'>Hello World</div>
+  <div style={style} className='App'>ACM Texas Tech</div>
 )
 
 export default hot(module)(App)

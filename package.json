@@ -5,8 +5,8 @@
   "dependencies": {
     "@material-ui/core": "3.3.0",
     "@material-ui/icons": "3.0.1",
-    "axios": "0.16.1",
-    "firebase": "5.3.1",
+    "axios": "0.18.0",
+    "firebase": "5.5.4",
     "firebase-admin": "6.0.0",
     "firebase-functions": "2.0.5",
     "immutable": "3.8.2",
@@ -45,7 +45,7 @@
     "build": "cross-env NODE_PATH=src react-app-rewired build",
     "test": "cross-env NODE_PATH=src react-app-rewired test --env=jsdom",
     "lint": "eslint src",
-    "env-config": "node ./src/utils/env-config"
+    "env-config": "cp .env.config .env"
   },
   "jest": {
     "verbose": true,
